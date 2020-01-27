@@ -18,7 +18,7 @@ struct Item {
     title: String,
 }
 
-fn add_doc(
+fn add_my_doc(
     index_writer: &mut IndexWriter,
     field_id: Field,
     field_title: Field,
@@ -57,7 +57,7 @@ fn create_index() -> tantivy::Result<Index> {
 
     index_writer.add_document(doc!(title => "The Diary of Muadib", id => 1u64));
     index_writer.add_document(doc!(title => "A Dairy Cow", id => 10u64));
-    add_doc(&mut index_writer, id, title, 123u64, "Rock and Roll");
+    add_my_doc(&mut index_writer, id, title, 123u64, "Rock and Roll");
 
     index_writer.commit()?;
     Ok(index)
