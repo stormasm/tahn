@@ -3,7 +3,14 @@ use std::path::Path;
 
 use tantivy::schema::Field;
 use tantivy::schema::*;
-use tantivy::{doc, Index};
+use tantivy::{doc, Index, IndexWriter};
+
+fn add_doc(index_writer: &mut IndexWriter, id: Field, title: Field) {
+    index_writer.add_document(doc!(title => "The Diary of Muadib", id => 1u64));
+
+    let doc = doc!(title => "Rock and Roll", id => 22u64);
+    index_writer.add_document(doc);
+}
 
 fn create_schema() -> Schema {
     let mut schema_builder = Schema::builder();
@@ -26,13 +33,14 @@ fn create_index() -> tantivy::Result<Index> {
 
     let index = Index::create_in_dir(&index_path, schema.clone())?;
 
-    let title = index.schema().get_field("title").unwrap();
     let id: Field = index.schema().get_field("id").unwrap();
+    let title: Field = index.schema().get_field("title").unwrap();
 
     let mut index_writer = index.writer_with_num_threads(1, 3_000_000)?;
 
     index_writer.add_document(doc!(title => "The Diary of Muadib", id => 1u64));
     index_writer.add_document(doc!(title => "A Dairy Cow", id => 10u64));
+    add_doc(&mut index_writer, id, title);
 
     index_writer.commit()?;
     Ok(index)
