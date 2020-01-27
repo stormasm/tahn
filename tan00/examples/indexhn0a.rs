@@ -5,10 +5,14 @@ use tantivy::schema::Field;
 use tantivy::schema::*;
 use tantivy::{doc, Index, IndexWriter};
 
-fn add_doc(index_writer: &mut IndexWriter, id: Field, title: Field) {
-    index_writer.add_document(doc!(title => "The Diary of Muadib", id => 1u64));
-
-    let doc = doc!(title => "Rock and Roll", id => 22u64);
+fn add_doc(
+    index_writer: &mut IndexWriter,
+    field_id: Field,
+    field_title: Field,
+    id: u64,
+    title: &str,
+) {
+    let doc = doc!(field_title => title, field_id => id);
     index_writer.add_document(doc);
 }
 
@@ -40,7 +44,7 @@ fn create_index() -> tantivy::Result<Index> {
 
     index_writer.add_document(doc!(title => "The Diary of Muadib", id => 1u64));
     index_writer.add_document(doc!(title => "A Dairy Cow", id => 10u64));
-    add_doc(&mut index_writer, id, title);
+    add_doc(&mut index_writer, id, title, 123u64, "Rock and Roll");
 
     index_writer.commit()?;
     Ok(index)
