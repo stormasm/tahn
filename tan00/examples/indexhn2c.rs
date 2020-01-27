@@ -55,7 +55,7 @@ fn create_index() -> tantivy::Result<Index> {
 
 fn process_lines(
     r: Receiver<String>,
-    index_writer: &mut IndexWriter,
+    mut index_writer: &mut IndexWriter,
     field_id: Field,
     field_title: Field,
 ) {
@@ -70,7 +70,7 @@ fn process_lines(
     // println!("{} {}", id, title);
 }
 
-fn read_file_to_buffer(filename: String) {
+fn read_file_to_buffer(filename: String) -> tantivy::Result<()> {
     let index = create_index().unwrap();
 
     let id: Field = index.schema().get_field("id").unwrap();
@@ -98,6 +98,7 @@ fn read_file_to_buffer(filename: String) {
     }
 
     index_writer.commit()?;
+    Ok(())
 }
 
 fn main() -> tantivy::Result<()> {
