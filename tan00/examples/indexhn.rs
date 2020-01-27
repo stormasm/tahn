@@ -26,11 +26,14 @@ fn create_index() -> tantivy::Result<Index> {
 
     let index = Index::create_in_dir(&index_path, schema.clone())?;
 
-    let mut index_writer = index.writer_with_num_threads(1, 3_000_000)?;
     let title = index.schema().get_field("title").unwrap();
     let id: Field = index.schema().get_field("id").unwrap();
+
+    let mut index_writer = index.writer_with_num_threads(1, 3_000_000)?;
+
     index_writer.add_document(doc!(title => "The Diary of Muadib", id => 1u64));
     index_writer.add_document(doc!(title => "A Dairy Cow", id => 10u64));
+
     index_writer.commit()?;
     Ok(index)
 }
