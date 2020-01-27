@@ -65,7 +65,7 @@ fn process_lines(
     let id = &item.id;
     let title = &item.title;
 
-    add_my_doc(&mut index_writer, field_id, field_title, id, title);
+    add_my_doc(&mut index_writer, field_id, field_title, *id, title);
 
     // println!("{} {}", id, title);
 }
@@ -98,7 +98,6 @@ fn read_file_to_buffer(filename: String) {
     }
 
     index_writer.commit()?;
-    Ok(())
 }
 
 fn main() -> tantivy::Result<()> {
