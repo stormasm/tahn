@@ -1,4 +1,7 @@
 
+This is the latest and most recent version of
+[indexhn.rs](https://github.com/stormasm/tahn/blob/master/tan00/examples/indexhn.rs) from Jan 27, 2020.
+
 [Read this first](https://github.com/stormasm/rust-search)
 
 March 27, 2020   
