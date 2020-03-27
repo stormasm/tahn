@@ -1,4 +1,13 @@
 
+[Read this first](https://github.com/stormasm/rust-search)
+
+March 27, 2020   
+As of this date I am not sure how this repo and
+[rust-search](https://github.com/stormasm/rust-search)
+are exactly related but suffice it to say until this
+statement is either removed or clarified that they
+are basically identical repos.
+
 To index a set of documents
 
 ```
